@@ -1,0 +1,22 @@
+{{ define "main" }}
+    <h2>Archives</h2>
+    {{ $paginator := .Paginate ((where .Site.Pages "Kind" "page").GroupByDate "2006-01") }}
+    <section class="archives">
+    <ol>
+        {{- range $paginator.PageGroups }}
+        <li>{{ .Key }}</li>
+        <li>
+            {{- range .Pages }}
+            <ol>
+                <li class="archives-item">
+                    <a href="{{ .Permalink | relURL }}">{{ .Title }}</a>
+                    <time>{{ .Date.Format (default "January 2, 2006" $.Site.Params.dateFormat) }}</time>
+                </li>
+            </ol>
+            {{- end }}
+        </li>
+        {{- end }}
+    </ol>
+    {{ partial "pagination.html" . }}
+    </section>
+{{ end }}

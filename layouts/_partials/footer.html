@@ -1,0 +1,16 @@
+<hr />
+<ul>
+    <li>{{ .Site.Copyright | safeHTML }}</li>
+</ul>
+<ul>
+    {{ with .OutputFormats.Get "RSS" }}
+    <li>
+        <a href="{{ .RelPermalink }}" type="application/rss+xml" target="_blank" title="RSS">RSS Feed</a>
+    </li>
+    {{ end }}
+    {{ with .OutputFormats.Get "ATOM" }}
+    <li>
+        <a href="{{ .RelPermalink }}" type="application/atom+xml" target="_blank" title="Atom">Atom Feed</a>
+    </li>
+    {{ end }}
+</ul>

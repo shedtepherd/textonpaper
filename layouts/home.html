@@ -1,0 +1,10 @@
+{{ define "main" }}
+  {{ .Content }}
+  <ol style="list-style-type:none">
+  {{ range where site.RegularPages "Section" "eq" "posts" }}
+  {{ $dateMachinePublished := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+  {{ $dateHumanPublished := .Date | time.Format "2006-01-02" }}
+            <li><a href="{{ .RelPermalink }}"><time datetime="{{$dateMachinePublished}}">{{$dateHumanPublished}}</time> - {{ .LinkTitle }}</a></li>
+    {{ end }}
+</ol>
+{{ end }}
