@@ -1,11 +1,11 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
+<h1>{{ .Title }}</h1>
   {{ .Content }}
-  {{ range sort .Pages "Title" }}
-  <ul>
-    <li>
-      <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-    </li>
-  </ul>
-  {{ end }}
+  <ol style="list-style-type:none">
+  {{ range .Pages }}
+  {{ $dateMachinePublished := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+  {{ $dateHumanPublished := .Date | time.Format "2006-01-02" }}
+            <li><a href="{{ .RelPermalink }}"><time datetime="{{$dateMachinePublished}}">{{$dateHumanPublished}}</time> - {{ .LinkTitle }}</a></li>
+    {{ end }}
+</ol>
 {{ end }}

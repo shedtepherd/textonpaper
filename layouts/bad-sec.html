@@ -1,0 +1,12 @@
+{{ define "main" }}
+{{ partial "breadcrumb.html" . }}
+  {{ .Content }}
+  <ol style="list-style-type:none">
+  {{ range .Pages }}
+  {{ $dateMachinePublished := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+  {{ $dateHumanPublished := .Date | time.Format "2006-01-02" }}
+            {{- if .IsPage }}<li><a href="{{ .RelPermalink }}"><time datetime="{{$dateMachinePublished}}">{{$dateHumanPublished}}</time> - {{ .LinkTitle }}</a></li>{{- end }}
+            {{- if .IsSection }}<li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{- end }}
+    {{ end }}
+</ol>
+{{ end }}

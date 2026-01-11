@@ -1,6 +1,8 @@
 {{ define "main" }}
     <h2>Archives</h2>
-    {{ $paginator := .Paginate ((where .Site.Pages "Kind" "page").GroupByDate "2006-01") }}
+    {{ $paginator := .Paginate (( .Site.RegularPages).GroupByDate "2006-01") }}
+    <!-- {{ $paginator := .Paginate ((where .Site.RegularPages "section" "eq" "blog").GroupByDate "2006-01") }}-->
+    <!-- {{ $paginator := .Paginate ((where .Site.Pages "Kind" "page").GroupByDate "2006-01") }} -->
     <section class="archives">
     <ol>
         {{- range $paginator.PageGroups }}

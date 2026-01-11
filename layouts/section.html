@@ -1,11 +1,23 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
-  {{ range sort .Pages "Title" }}
-  <ul>
-    <li>
-      <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-    </li>
-  </ul>
-  {{ end }}
+{{ partial "breadcrumb.html" . }}
+    {{ $paginator := .Paginate ((where .Site.RegularPages "Section" "eq" "blog").GroupByDate "2006-01") }}
+    <!-- {{ $paginator := .Paginate ((where .Site.Pages "Kind" "page").GroupByDate "2006-01") }} -->
+    <section class="archives">
+    <ol>
+        {{- range $paginator.PageGroups }}
+        <li>{{ .Key }}</li>
+        <li>
+            {{- range .Pages }}
+            <ol>
+                <li class="archives-item">
+                    <a href="{{ .Permalink | relURL }}">{{ .Title }}</a>
+                    <time>{{ .Date.Format (default "January 2, 2006" $.Site.Params.dateFormat) }}</time>
+                </li>
+            </ol>
+            {{- end }}
+        </li>
+        {{- end }}
+    </ol>
+    {{ partial "pagination.html" . }}
+    </section>
 {{ end }}
